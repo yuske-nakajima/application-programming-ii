@@ -75,21 +75,23 @@ def get_temperature():
 
 
 def main():
-    try:
-        # wifiにつなぐ
-        connect()
+    while True:
+        try:
+            # wifiにつなぐ
+            connect()
 
-        # 温度を計測
-        temperature = get_temperature()
+            # 温度を計測
+            temperature = get_temperature()
 
-        # APIコール
-        post_data(POST_URL, temperature)
+            # APIコール
+            post_data(POST_URL, temperature)
 
-    except KeyboardInterrupt:
-        machine.reset()
+            # 5分待機
+            sleep(60 * 5)
+        except KeyboardInterrupt:
+            machine.reset()
+            sleep(10)
 
 
 if __name__ == "__main__":
-    while True:
-        main()
-        sleep(60 * 5)
+    main()
